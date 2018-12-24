@@ -20,7 +20,7 @@ export default class Question extends Component {
         hidden = "";
       }
     }
-   
+
     return (
       <div className={"QuestionFrame " + hidden}>
         <div className="Question"><p className="QuestionText">{this.props.text}</p></div>

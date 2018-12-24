@@ -4,6 +4,13 @@ import Questions from './questions';
 export default States = new Mongo.Collection('states');
 var osc = require('node-osc');
 
+const jokers = [
+  "50:50",
+  "Audience",
+  "Phone",
+  "Ask"
+];
+
 function buildState(progress, question, showedAnswer, selectedAnswer, validateAnswer, showWin, jokersLeft){
   return {
     progress: progress,
@@ -22,7 +29,7 @@ function state(){
   if (state === undefined){
     state = {
       id: 0,
-      state: buildState(0, {}, 0, "", false, false, [])
+      state: buildState(0, {}, 0, "", false, false, jokers)
     }
   }
   return state;
@@ -87,6 +94,15 @@ function selectAnswer(answer) {
   setState(s);
 }
 
+function use5050(answers){
+  console.log(">>>>>>>>>>>>>>>>>><")
+  let s = state().state;
+  s.question[answers[0].toLowerCase()] = "";
+  s.question[answers[1].toLowerCase()] = "";
+  trigger("joker1");
+  setState(s);
+}
+
 function undo() {
   States.remove({ _id: state()._id });
 }
@@ -107,6 +123,12 @@ Meteor.methods({
   'states.selectAnswer'(answer) {
     console.log("Next selectAnswer", answer);
     selectAnswer(answer);
+  },
+  'states.use5050'(answers) {
+    console.log("User 5050", answers);
+    if (answers.length === 2){
+      use5050(answers);
+    }
   },
 });
 

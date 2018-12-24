@@ -32,6 +32,7 @@ const trophies = [
   "€ 1.000.000"
 ];
 
+
 class App extends Component {
 
 
@@ -48,7 +49,7 @@ class App extends Component {
           selectedAnswer: "",
           validateAnswer: false,
           showWin: false,
-          jokersLeft: ["50:50", "Pub", "Phone", "Try"]
+          jokersLeft: []
         }
       }
     }
@@ -72,6 +73,19 @@ class App extends Component {
           <option value="C">C: {this.state().question.c}</option>
           <option value="D">D: {this.state().question.d}</option>
         </select>
+
+        <div>
+         <span>50:50</span>
+         <select multiple ref={(input) => this.joker1 = input}>
+           <option disabled={this.state().question.correct === 'A'} value="A">A: {this.state().question.a}</option>
+           <option disabled={this.state().question.correct === 'B'} value="B">B: {this.state().question.b}</option>
+           <option disabled={this.state().question.correct === 'C'} value="C">C: {this.state().question.c}</option>
+           <option disabled={this.state().question.correct === 'D'} value="D">D: {this.state().question.d}</option>
+         </select>
+         <button onClick={() => {
+          let values = [].filter.call(this.joker1.options, o => o.selected).map(o => o.value);
+          Meteor.call('states.use5050', values) }}>Okay</button>
+        </div>
       </div>);
     }
 
@@ -95,7 +109,7 @@ class App extends Component {
       );
     }
 
-    return (<div>
+    return (<div className={page}>
       <div className="Canvas">{canvas}</div>
       {remote}
     </div>);
