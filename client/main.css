@@ -1,0 +1,229 @@
+body, html {
+  padding: 0;
+  margin: 0;
+
+  font-family: sans-serif;
+}
+.Canvas{
+  width: 1280px;
+  height: 720px;
+  background-color: rgb(0,255,0);
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.QuestionFrame{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  width: 1100px;
+  bottom: 35px;
+  left: 90px;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+}
+.QuestionFrameHidden{
+  -webkit-transform: translate(0px, 300px);
+  transform: translate(0px, 300px);
+}
+.QuestionFrameAnswersHidden{
+  -webkit-transform: translate(0px, 130px);
+  transform: translate(0px, 130px);
+}
+
+.QuestionFrameAnswersHidden .Answers{
+  -webkit-transform: translate(0px, 45px);
+  transform: translate(0px, 45px);
+}
+
+.Win{
+  width: 600px;
+  height: 80px;
+  background-image: linear-gradient(-90deg, #13318F 0%, #2B8ECA 49%, #13318F 100%);
+  border: 3px solid #FFFFFF;
+  box-shadow: inset 0 0 30px 0 rgba(0,0,0,0.60);
+  border-radius: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.WinText{
+  font-family: HelveticaNeue-Bold;
+  font-size: 60px;
+  color: #FF991F;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(0,0,0,0.8);
+  word-wrap: break-word;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  letter-spacing: 5px;
+}
+
+
+.Question{
+  width: 1100px;
+  height: 80px;
+  background-image: linear-gradient(-90deg, #13318F 0%, #2B8ECA 49%, #13318F 100%);
+  border: 3px solid #FFFFFF;
+  box-shadow: inset 0 0 30px 0 rgba(0,0,0,0.60);
+  border-radius: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.QuestionText{
+  font-family: HelveticaNeue-Bold;
+  font-size: 30px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(0,0,0,0.73);
+  word-wrap: break-word;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 32px;
+}
+.Answers{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.Answer{
+  margin-top: 10px;
+  display: flex;
+  height: 50px;
+  width: 530px;
+  border: 3px solid #FFFFFF;
+  box-shadow: inset 0 0 15px 0 rgba(0,0,0,0.50);
+  border-radius: 50px;
+}
+.A{
+  background-image: linear-gradient(-224deg, #13318F 0%, #2B8ECA 100%);
+}
+.B{
+  background-image: linear-gradient(-134deg, #13318F 0%, #2B8ECA 100%);
+}
+.C{
+  background-image: linear-gradient(45deg, #13318F 0%, #2B8ECA 100%);
+}
+.D{
+  background-image: linear-gradient(-45deg, #13318F 0%, #2B8ECA 100%);
+}
+
+.A-Selected{
+  background-image: linear-gradient(-224deg, #DE6E44 0%, #F1BA12 100%);
+}
+.A-Selected > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+.B-Selected{
+  background-image: linear-gradient(-134deg,#DE6E44 0%, #F1BA12 100%);
+}
+.B-Selected > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+.C-Selected{
+  background-image: linear-gradient(45deg, #DE6E44 0%, #F1BA12 100%);
+}
+.C-Selected > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+.D-Selected{
+  background-image: linear-gradient(-45deg, #DE6E44 0%, #F1BA12 100%);
+}
+.D-Selected > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+
+.A-Correct{
+  animation: blink-animation 0.4s steps(5, start) infinite;
+  -webkit-animation: blink-animation 0.4s steps(5, start) infinite;
+}
+.A-Correct > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+.B-Correct{
+  animation: blink-animation 0.4s steps(5, start) infinite;
+  -webkit-animation: blink-animation 0.4s steps(5, start) infinite;
+}
+.B-Correct > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+.C-Correct{
+  animation: blink-animation 0.4s steps(5, start) infinite;
+  -webkit-animation: blink-animation 0.4s steps(5, start) infinite;
+}
+.C-Correct > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+.D-Correct{
+  animation: blink-animation 0.4s steps(5, start) infinite;
+  -webkit-animation: blink-animation 0.4s steps(5, start) infinite;
+}
+.D-Correct > .AnswerText{
+  color: black;
+  text-shadow: none;
+}
+
+@keyframes blink-animation {
+  to {
+    background-image: linear-gradient(-224deg, #1D8E25 0%, #55D461 100%);
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    background-image: linear-gradient(-224deg, #1D8E25 0%, #55D461 100%);
+  }
+}
+
+.AnswerText{
+  font-family: HelveticaNeue-Bold;
+  font-size: 35px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-shadow: 0 0 6px rgba(0,0,0,0.73);
+  padding-left: 15px;
+  vertical-align: middle;
+  line-height: 50px;
+  width: 425px;
+}
+.Letter{
+  font-family: HelveticaNeue-Bold;
+  font-size: 40px;
+  color: #FF991F;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(0,0,0,0.73);
+  padding-left: 20px;
+}
+.LetterMarked{
+  color: red;
+}
