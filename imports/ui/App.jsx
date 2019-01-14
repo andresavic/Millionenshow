@@ -49,12 +49,68 @@ class App extends Component {
           selectedAnswer: "",
           validateAnswer: false,
           showWin: false,
-          jokersLeft: []
+          jokersLeft: [],
+          voting: { show: false, fake: true, a: 0, b: 0, c: 0, d: 0 }
         }
       }
     }
     console.log("Render state", state.state);
     return state.state;
+  }
+
+  render5050() {
+    console.log(this.state());
+    if (!this.state().jokersLeft.includes('50:50')) {
+      return;
+    }
+    return (
+    <div className="Section">
+     <select multiple ref={(input) => this.joker1 = input}>
+       <option disabled={this.state().question.correct === 'A'} value="A">A: {this.state().question.a}</option>
+       <option disabled={this.state().question.correct === 'B'} value="B">B: {this.state().question.b}</option>
+       <option disabled={this.state().question.correct === 'C'} value="C">C: {this.state().question.c}</option>
+       <option disabled={this.state().question.correct === 'D'} value="D">D: {this.state().question.d}</option>
+     </select>
+     <button onClick={() => {
+      let values = [].filter.call(this.joker1.options, o => o.selected).map(o => o.value);
+      Meteor.call('states.use5050', values) }}>50:50</button>
+    </div>);
+  }
+
+  renderVotingRemote() {
+    if (!this.state().jokersLeft.includes('Audience')) {
+      return;
+    }
+
+    return (
+    <div className="Section">
+      <button onClick={() => { Meteor.call('states.showAudience') }}>Show</button>
+       <input className="VotingInput" ref={(input) => this.votingA = input} type="number" step="1" />
+       <input className="VotingInput" ref={(input) => this.votingB = input} type="number" step="1" />
+       <input className="VotingInput" ref={(input) => this.votingC = input} type="number" step="1" />
+       <input className="VotingInput" ref={(input) => this.votingD = input} type="number" step="1" />
+     <button onClick={() => {
+      Meteor.call('states.useAudience', { show: true, fake: false, a: this.votingA.value, b: this.votingB.value, c: this.votingC.value, d: this.votingD.value}) }}>VOTE</button>
+    </div>);
+  }
+
+  renderVoting() {
+    return (
+      <div className={"Voting " + (this.state().voting.show === true ? '' : 'VotingHidden')}>
+        <div className={"Counts " + (this.state().voting.fake === true ? 'CountsHidden' : '')}>
+          <span>{this.state().voting.a}%</span>
+          <span>{this.state().voting.b}%</span>
+          <span>{this.state().voting.c}%</span>
+          <span>{this.state().voting.d}%</span>
+        </div>
+        <div className="Bars">
+          <div style={{ height: this.state().voting.a + "%" }} className="Bar BarA"></div>
+          <div style={{ height: this.state().voting.b + "%" }} className="Bar BarB"></div>
+          <div style={{ height: this.state().voting.c + "%" }} className="Bar BarC"></div>
+          <div style={{ height: this.state().voting.d + "%" }} className="Bar BarD"></div>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -64,28 +120,22 @@ class App extends Component {
     let remote;
     if (page === 'remote') {
       remote = (<div>
-        <button onClick={() => { Meteor.call('states.undo') }}>Undo</button>
-        <button onClick={() => { Meteor.call('states.nextStep') }}>Next step</button>
-        <select multiple onChange={(e) => { Meteor.call('states.selectAnswer', e.target.value) }}>
-          <option value="">Answer:</option>
-          <option value="A">A: {this.state().question.a}</option>
-          <option value="B">B: {this.state().question.b}</option>
-          <option value="C">C: {this.state().question.c}</option>
-          <option value="D">D: {this.state().question.d}</option>
-        </select>
+        <div className="Section">
+          <button onClick={() => { Meteor.call('states.undo') }}>Undo</button>
 
-        <div>
-         <span>50:50</span>
-         <select multiple ref={(input) => this.joker1 = input}>
-           <option disabled={this.state().question.correct === 'A'} value="A">A: {this.state().question.a}</option>
-           <option disabled={this.state().question.correct === 'B'} value="B">B: {this.state().question.b}</option>
-           <option disabled={this.state().question.correct === 'C'} value="C">C: {this.state().question.c}</option>
-           <option disabled={this.state().question.correct === 'D'} value="D">D: {this.state().question.d}</option>
-         </select>
-         <button onClick={() => {
-          let values = [].filter.call(this.joker1.options, o => o.selected).map(o => o.value);
-          Meteor.call('states.use5050', values) }}>Okay</button>
+          <select multiple onChange={(e) => { Meteor.call('states.selectAnswer', e.target.value) }}>
+            <option value="">Answer:</option>
+            <option value="A">A: {this.state().question.a}</option>
+            <option value="B">B: {this.state().question.b}</option>
+            <option value="C">C: {this.state().question.c}</option>
+            <option value="D">D: {this.state().question.d}</option>
+          </select>
+
+          <button onClick={() => { Meteor.call('states.nextStep') }}>Next step</button>
         </div>
+
+        {this.render5050()}
+        {this.renderVotingRemote()}
       </div>);
     }
 
@@ -110,7 +160,10 @@ class App extends Component {
     }
 
     return (<div className={page}>
-      <div className="Canvas">{canvas}</div>
+      <div className="Canvas">
+        {this.renderVoting()}
+        {canvas}
+      </div>
       {remote}
     </div>);
   }

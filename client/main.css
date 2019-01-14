@@ -4,6 +4,7 @@ body, html {
   background-color: black;
   font-family: sans-serif;
   overflow: hidden;
+  font-weight: 300;
 }
 .moderator .Canvas{
   height: 940px;
@@ -12,7 +13,7 @@ body, html {
 .player .Canvas{
   height: 940px;
   background-color: black;
-  transform: scale(1.15)  translate(-3px, -50px); 
+  transform: scale(1.15)  translate(-3px, -50px);
 }
 .Canvas{
   width: 1280px;
@@ -66,7 +67,7 @@ body, html {
   margin-right: auto;
 }
 .WinText{
-  font-family: HelveticaNeue-Bold;
+  font-weight: bold;
   font-size: 60px;
   color: #FF991F;
   letter-spacing: 0;
@@ -93,7 +94,7 @@ body, html {
   justify-content: center;
 }
 .QuestionText{
-  font-family: HelveticaNeue-Bold;
+  font-weight: bold;
   font-size: 30px;
   color: #FFFFFF;
   letter-spacing: 0;
@@ -215,7 +216,7 @@ body, html {
 }
 
 .AnswerText{
-  font-family: HelveticaNeue-Bold;
+  font-weight: bold;
   font-size: 35px;
   color: #FFFFFF;
   letter-spacing: 0;
@@ -226,14 +227,99 @@ body, html {
   width: 425px;
 }
 .Letter{
-  font-family: HelveticaNeue-Bold;
+  font-weight: bold;
   font-size: 40px;
   color: #FF991F;
   letter-spacing: 0;
   text-align: center;
   text-shadow: 0 0 6px rgba(0,0,0,0.73);
   padding-left: 20px;
+  line-height: 50px;
 }
 .LetterMarked{
-  color: red;
+
+}
+.Section{
+  display: inline-block;
+  height: 130px;
+  background-color: gray;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+}
+.Section button{
+  height: 100%;
+  float: left;
+  margin: 5px;
+  width: 130px;
+  font-size: 20px;
+}
+.Section select{
+  height: 100%;
+  float: left;
+  margin: 5px;
+  font-size: 20px;
+}
+
+.Voting{
+  width: 224px;
+  height: 292px;
+  background-image: url("/VotingBackground.png");
+  background-size: contain;
+  position: absolute;
+  right: 90px;
+  top: 90px;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+}
+.VotingHidden{
+  -webkit-transform: translate(320px, 0px);
+  transform: translate(320px, 0px);
+}
+.Voting .Bars{
+  height: 200px;
+  width: 190px;
+  position: absolute;
+  bottom: 48px;
+  left: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.CountsHidden{
+  display: none!important;
+}
+.Voting .Bar{
+  width: 35px;
+  background-image: linear-gradient(-90deg, #29217C 0%, #8173E3 39%, #DAC7FA 60%, #DFCAFA 66%, #352A87 100%);
+  height: 50%;
+  position: relative;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  align-self: flex-end;
+  transition: all 1.2s ease-out;
+}
+
+.Voting .Counts{
+  height: 200px;
+  width: 190px;
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.Voting .Counts span{
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: -1px;
+}
+.VotingInput {
+  float: left;
+  width: 30px;
+  font-size: 20px;
 }
